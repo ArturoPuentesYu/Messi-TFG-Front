@@ -1,12 +1,17 @@
-
-function App() {
-
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './components/HomePage.tsx';
+import NavBar from './components/navBar.tsx';
+import Footer from './components/footer.tsx';
+const App = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+    <BrowserRouter>
+      <NavBar/>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+      <Footer/>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
