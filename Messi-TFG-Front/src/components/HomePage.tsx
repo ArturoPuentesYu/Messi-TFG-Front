@@ -6,7 +6,6 @@ import indexWallpaper from "../assets/index-wallpaper.webp";
 import { Image, Spinner } from "@nextui-org/react"
 import { PlayerService } from "../services/data.service";
 import { useEffect, useState } from "react";
-import { Player } from "../types/data.types";
 const HomePage = () => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +23,7 @@ const HomePage = () => {
       }
     }).catch((error) => {
       setError(error);
-      return error;
+      return errorMessage;
     });
   }, []);
   console.log(players);
