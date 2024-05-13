@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from './components/HomePage.tsx';
+import Index from './pages/index/page';
 import NavBar from './components/navBar.tsx';
 import Footer from './components/footer.tsx';
 const App = () => {
@@ -7,7 +7,7 @@ const App = () => {
     <BrowserRouter>
       <NavBar/>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Index />} />
       </Routes>
       <Footer/>
     </BrowserRouter>

@@ -3,7 +3,7 @@ interface Titulo {
     nombre: string;
 }
 
-export interface Player {
+export interface MessiStats {
     nombre: string;
     pais: string;
     club?: string; 

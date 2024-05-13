@@ -19,31 +19,33 @@ export default function NavBar() {
           className="sm:hidden"
         />
         <NavbarBrand>
+          <Link href="/" color="foreground">
           <Image src={MessiLogo} alt="messi-logo" width="30" height="30" radius="none"  className="me-3"/>
           <p className="font-bold text-inherit">MESSI</p>
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/estadisticas">
             Estadísticas
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#" aria-current="page">
+          <Link color="foreground" href="/foro" aria-current="page">
             Foro
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
+          <Button as={Link} color="primary" href="/log-in" variant="shadow">
             Iniciar sesión
           </Button>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button as={Link} href="#" variant="flat">
+          <Button as={Link} href="#" variant="shadow">
             English
           </Button>
         </NavbarItem>
