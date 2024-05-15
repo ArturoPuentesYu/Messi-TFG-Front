@@ -15,3 +15,8 @@ export interface MessiStats {
     debut: Date;
     titulos?: Titulo[]; 
 }
+
+export interface AnimatedNumberProps {
+  finalNumber: number;
+  duration: number;
+}

@@ -3,3 +3,22 @@
 @tailwind utilities;
 
 
+@layer utilities {
+  .screen-minus-navbar {
+    height: calc(100vh - 4rem); /* Ajusta 4rem a la altura de tu navbar */
+  }
+}
+
+@keyframes slide-in {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+.background-animate {
+  animation: slide-in 1s ease-out forwards; /* Ajusta la duración según necesites */
+  background-size: 200% 100%;
+}
