@@ -25,5 +25,5 @@ Iniciar la aplicación:
 - Node.js y npm instalados en tu sistema.
 
 ### Clonar el Repositorio
-git clone https://github.com/ArturoPuentesYu/Messi-TFG-Front
+git clone https://github.com/ArturoPuentesYu/Messi-TFG-Front.git
 cd Messi-TFG-Front
