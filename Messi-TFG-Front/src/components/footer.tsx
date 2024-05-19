@@ -3,7 +3,7 @@
         const Footer = () => {
             return (
                 
-        <footer>
+        <footer className="flex w-full justify-center items-center">
           <p>© 2024 by Messi Fans. All rights reserved.</p>
         </footer>
             )

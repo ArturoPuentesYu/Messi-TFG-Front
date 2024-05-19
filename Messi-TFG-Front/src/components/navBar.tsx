@@ -6,9 +6,6 @@ export default function NavBar() {
 
   const menuItems = [
     "Estadistícas",
-    "Foro",
-    "Registrarse",
-    "Iniciar sesión",
   ];
 
   return (
@@ -32,23 +29,23 @@ export default function NavBar() {
             Estadísticas
           </Link>
         </NavbarItem>
-        <NavbarItem>
+        {/* <NavbarItem>
           <Link color="foreground" href="/foro" aria-current="page">
             Foro
           </Link>
-        </NavbarItem>
-        <NavbarItem>
+        </NavbarItem> */}
+        {/* <NavbarItem>
           <Button as={Link} color="primary" href="/log-in" variant="shadow">
             Iniciar sesión
           </Button>
-        </NavbarItem>
+        </NavbarItem> */}
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
+        {/* <NavbarItem>
           <Button as={Link} href="#" variant="shadow">
             English
           </Button>
-        </NavbarItem>
+        </NavbarItem> */}
       </NavbarContent>
       <NavbarMenu>
         {menuItems.map((item, index) => (
