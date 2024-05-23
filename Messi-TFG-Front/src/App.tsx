@@ -7,6 +7,7 @@ import Footer from "./components/footer"
 import Register from "./pages/register/page"
 import Login from "./pages/login/page"
 import { AuthProvider } from "./contexts/auth.context"
+import CreateTopicForm from "./pages/forum/page"
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="/estadisticas" element={<Estadisticas />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/create-topic" element={<CreateTopicForm />} />
         </Routes>
         <Footer />
       </BrowserRouter>

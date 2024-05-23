@@ -23,8 +23,6 @@ const NavBar: React.FC = () => {
   const { isAuthenticated, user, logout } = useAuth()
   const menuItems = ["Estadísticas"]
 
-  console.log("NavBar render: isAuthenticated=", isAuthenticated, "user=", user)
-
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
