@@ -1,15 +1,31 @@
-// src/services/userService.ts
-import axios from 'axios';
+import ApiService from './api.service';
 
-import { User } from '../types/user';
-
-export const fetchUsers = async () => {
-  try {
-    const response: { data: User[] } = await axios.get(`${import.meta.env.NEXT_PUBLIC_API_URL}/users`);
-    
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    throw error;
+class UserService extends ApiService {
+  constructor() {
+    super();
   }
-};
+
+  private _getData = async (callAxios: Promise<any>) => {
+    const { data, error } = await callAxios.catch(
+      (err: { response: { data: { message: any } } }) => ({
+        error: err.response.data.message,
+      })
+    );
+    if (error) {
+      return { error };
+    }
+    return data;
+  };
+
+  public async getUser(id: string) {
+    try {
+      const data = await this._getData(this.instance.get(`/user/${id}`));
+      return { status: 'ok', user: data };
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      return { status: 'error', error: error };
+    }
+  }
+}
+
+export { UserService };

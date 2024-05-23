@@ -8,20 +8,6 @@ class ApiService {
       baseURL: import.meta.env.VITE_PUBLIC_API_URL,
     });
 
-    // Añadir interceptores de solicitud
-    // this.instance.interceptors.request.use(
-    //   config => {
-    //     // Verifica si la solicitud es un GET antes de loguear la URL
-    //     if (config.method?.toLowerCase() === 'get') {
-    //       console.log(`Making GET request to: ${config.baseURL}${config.url}`);
-    //     }
-    //     return config;
-    //   },
-    //   error => {
-    //     // Manejo de errores para el interceptor
-    //     return Promise.reject(error);
-    //   }
-    // );
 
     // Añadir interceptores de respuesta si es necesario
     this.instance.interceptors.response.use(

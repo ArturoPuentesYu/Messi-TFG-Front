@@ -1,12 +1,29 @@
-import React from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, Button, Image} from "@nextui-org/react";
-import MessiLogo from "../assets/messiLogo.png";
-export default function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+import { useState } from "react"
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+  Link,
+  Button,
+  Image,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem
+} from "@nextui-org/react"
+import MessiLogo from "../assets/messiLogo.png"
+import { useAuth } from "../contexts/auth.context"
 
-  const menuItems = [
-    "Estadistícas",
-  ];
+const NavBar: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { isAuthenticated, user, logout } = useAuth()
+  const menuItems = ["Estadísticas"]
+
+  console.log("NavBar render: isAuthenticated=", isAuthenticated, "user=", user)
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -17,45 +34,62 @@ export default function NavBar() {
         />
         <NavbarBrand>
           <Link href="/" color="foreground">
-          <Image src={MessiLogo} alt="messi-logo" width="30" height="30" radius="none"  className="me-3"/>
-          <p className="font-bold text-inherit">MESSI</p>
+            <Image
+              src={MessiLogo}
+              alt="messi-logo"
+              width="30"
+              height="30"
+              radius="none"
+              className="me-3"
+            />
+            <p className="font-bold text-inherit">MESSI</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
-
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
           <Link color="foreground" href="/estadisticas">
             Estadísticas
           </Link>
         </NavbarItem>
-        {/* <NavbarItem>
-          <Link color="foreground" href="/foro" aria-current="page">
-            Foro
-          </Link>
-        </NavbarItem> */}
-        {/* <NavbarItem>
-          <Button as={Link} color="primary" href="/log-in" variant="shadow">
-            Iniciar sesión
-          </Button>
-        </NavbarItem> */}
       </NavbarContent>
-      <NavbarContent justify="end">
-        {/* <NavbarItem>
-          <Button as={Link} href="#" variant="shadow">
-            English
-          </Button>
-        </NavbarItem> */}
+      <NavbarContent className="hidden sm:flex gap-4" justify="end">
+        {isAuthenticated ? (
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>{`Hola, ${user.name}`}</DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2">
+                <p className="font-semibold">{user.email}</p>
+              </DropdownItem>
+              <DropdownItem key="logout" color="danger">
+                <Button className="w-full" color="danger" onClick={logout}>
+                  Cerrar sesión
+                </Button>
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        ) : (
+          <>
+            <NavbarItem>
+              <Link color="primary" href="/login">
+                Iniciar sesión
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Button as={Link} color="primary" href="/register" variant="shadow">
+                Registrarse
+              </Button>
+            </NavbarItem>
+          </>
+        )}
       </NavbarContent>
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
-              color={
-                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
-              }
+              color={index === menuItems.length - 1 ? "danger" : "foreground"}
               className="w-full"
-              href="#"
+              href="/estadisticas"
               size="lg"
             >
               {item}
@@ -64,5 +98,7 @@ export default function NavBar() {
         ))}
       </NavbarMenu>
     </Navbar>
-  );
+  )
 }
+
+export default NavBar
