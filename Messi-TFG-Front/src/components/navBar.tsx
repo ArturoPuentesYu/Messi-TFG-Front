@@ -23,6 +23,8 @@ const NavBar: React.FC = () => {
   const { isAuthenticated, user, logout } = useAuth()
   const menuItems = ["Estadísticas"]
 
+  console.log("NavBar render: isAuthenticated=", isAuthenticated, "user=", user)
+
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
@@ -82,18 +84,41 @@ const NavBar: React.FC = () => {
         )}
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={index === menuItems.length - 1 ? "danger" : "foreground"}
-              className="w-full"
-              href="/estadisticas"
-              size="lg"
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        {!isAuthenticated ? (
+          menuItems.map((item, index) => (
+            <NavbarMenuItem key={`${item}-${index}`}>
+              <Link
+                color={index === menuItems.length - 1 ? "danger" : "foreground"}
+                className="w-full"
+                href={item.href}
+                size="lg"
+              >
+                {item.name}
+              </Link>
+            </NavbarMenuItem>
+          ))
+        ) : (
+          <>
+            <NavbarMenuItem>
+              <p className="font-semibold">{`Hola, ${user.name}`}</p>
+            </NavbarMenuItem>
+            <NavbarMenuItem>
+              <Link
+                color="foreground"
+                className="w-full"
+                size="lg"
+                href="/estadisticas"
+              >
+                Estadísticas
+              </Link>
+            </NavbarMenuItem>
+            <NavbarMenuItem>
+              <p className="w-full text-red" onClick={logout}>
+                Cerrar sesión
+              </p>
+            </NavbarMenuItem>
+          </>
+        )}
       </NavbarMenu>
     </Navbar>
   )
