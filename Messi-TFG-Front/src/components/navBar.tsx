@@ -19,11 +19,9 @@ import MessiLogo from "../assets/messiLogo.png"
 import { useAuth } from "../contexts/auth.context"
 
 const NavBar: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { isAuthenticated, user, logout } = useAuth()
-  const menuItems = ["Estadísticas"]
-
-  console.log("NavBar render: isAuthenticated=", isAuthenticated, "user=", user)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
+  const menuItems = [{ name: "Estadísticas", href: "/estadisticas" }, { name: "Iniciar sesión", href: "/login" }, { name: "Registrarse", href: "/register" }];
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -84,18 +82,31 @@ const NavBar: React.FC = () => {
         )}
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
+        {!isAuthenticated ? menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
               color={index === menuItems.length - 1 ? "danger" : "foreground"}
               className="w-full"
-              href="/estadisticas"
+              href={item.href}
               size="lg"
             >
-              {item}
+              {item.name}
             </Link>
           </NavbarMenuItem>
-        ))}
+        )) : (<>
+          <NavbarMenuItem >
+            <p className="font-semibold">{`Hola, ${user.name}`}</p>
+          </NavbarMenuItem>
+          <NavbarMenuItem >
+            <Link color="foreground" className="w-full" size="lg" href="/estadisticas">Estadísticas</Link>
+          </NavbarMenuItem>
+          <NavbarMenuItem >
+          <p className="w-full text-red" onClick={logout}>
+                  Cerrar sesión
+                </p>
+          </NavbarMenuItem>
+        </>
+        )}
       </NavbarMenu>
     </Navbar>
   )

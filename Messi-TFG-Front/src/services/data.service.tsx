@@ -28,8 +28,6 @@ class PlayerService extends ApiService {
       return { status: 'error', error: error };
     }
   }
-
-  // Puedes añadir más métodos aquí, por ejemplo, para actualizar o eliminar jugadores
 }
 
 export { PlayerService };
