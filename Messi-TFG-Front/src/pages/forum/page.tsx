@@ -1,65 +1,89 @@
-import React, { useState } from "react"
+import { useEffect, useState } from "react"
+import { Title } from "rizzui"
+import { Button, Pagination } from "@nextui-org/react"
+import ModalCrearTopic from "../../components/modalCrearTopic" // Asegúrate de ajustar el path si es necesario
+import { AiFillLike, AiFillDislike } from "react-icons/ai"
 import { TopicService } from "../../services/topic.service"
-import { useAuth } from "../../contexts/auth.context"
+import { ITopic } from "../../types/topic.type"
 
 const CreateTopicForm: React.FC = () => {
-  const { user, isAuthenticated } = useAuth()
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
-  const [error, setError] = useState<string | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [topics, setTopics] = useState([])
+  const topicService = new TopicService()
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    const topicService = new TopicService()
-    if (!isAuthenticated) {
-      setError("You must be logged in to create a topic")
-      return
-    }
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
 
-    try {
-      const topicData = {
-        title,
-        content,
-        createdBy: user._id
-      }
-      const response = await topicService.createTopic(topicData)
-      if (response.status === "error") {
-        setError(response.error)
-      } else {
-        setTitle("")
-        setContent("")
-        setError(null)
-        // Optionally redirect or update state to reflect new topic
-      }
-    } catch (err) {
-      setError("Failed to create topic")
-    }
+  const handleOpenChange = (open: boolean) => {
+    setIsModalOpen(open)
   }
 
+  const fetchTopics = () => {
+    topicService
+      .getTopicsPagination(currentPage, 5)
+      .then((res) => res.data)
+      .then((res) => {
+        setTopics(res.topics)
+        setTotalPages(Math.ceil(res.total / 5))
+      })
+      .catch((e) => console.error(e))
+  }
+
+  useEffect(() => {
+    fetchTopics()
+  }, [currentPage])
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
+    <>
+      <div className="flex flex-col min-h-screen pb-10 pt-8 gap-y-6 justify-start items-center w-full bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900">
+        <div className="flex flex-row w-[80%] justify-between pb-6">
+          <Title as="h1">Foro</Title>
+          <Button
+            color="primary"
+            variant="shadow"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Crear un tema
+          </Button>
+        </div>
+
+        {topics?.map((topic: ITopic) => (
+          <div
+            key={topic._id}
+            className="flex flex-col w-[80%] justify-between border border-gray-500 py-4 px-6 rounded-lg"
+          >
+            <div className="flex flex-row justify-between">
+              <Title as="h3">{topic.title}</Title>
+              <div className="flex flex-row min-w-20 justify-between">
+                <div className="flex flex-row items-center">
+                  <AiFillLike /> <p>{topic.likes}</p>
+                </div>
+                <div className="flex flex-row items-center">
+                  <AiFillDislike /> <p>{topic.dislikes}</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-row justify-between">
+              <p>Creado por: {topic.createdBy.name}</p>
+              <p>{new Date(topic.createdAt).toLocaleDateString()}</p>
+            </div>
+            <p>{topic.content}</p>
+          </div>
+        ))}
+        <Pagination
+          total={totalPages}
+          color="secondary"
+          page={currentPage}
+          onChange={setCurrentPage}
         />
       </div>
-      <div>
-        <label htmlFor="content">Content</label>
-        <textarea
-          id="content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-        />
-      </div>
-      {error && <p>{error}</p>}
-      <button type="submit">Create Topic</button>
-    </form>
+
+      <ModalCrearTopic
+        isOpen={isModalOpen}
+        onOpenChange={handleOpenChange}
+        onTopicCreated={fetchTopics} // Pasa la función de actualización como prop
+      />
+    </>
   )
 }
 

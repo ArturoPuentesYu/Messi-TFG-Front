@@ -30,7 +30,7 @@ class TopicService extends ApiService {
     createdBy: string
   }) {
     const { data, error } = await this._getData(
-      this.instance.post("/topics", topicData)
+      this.instance.post("/topics/topic", topicData)
     )
     if (error) {
       return { status: "error", error }
@@ -39,11 +39,24 @@ class TopicService extends ApiService {
   }
 
   public async getTopics() {
-    const { data, error } = await this._getData(this.instance.get("/topics"))
-    if (error) {
-      return { status: "error", error }
+    try {
+      const data = await this._getData(this.instance.get("/topics/topic"))
+      return { status: "ok", topics: data }
+    } catch (error) {
+      console.error("Error getting player data:", error)
+      return { status: "error", error: error }
     }
-    return { status: "ok", topics: data }
+  }
+
+  public async getTopicsPagination(page: number, limit: number) {
+    try {
+      const data = await this._getData(
+        this.instance.get(`/topics/topic/pagination?limit=${limit}&page=${page}`)
+      )
+      return { status: "ok", data: data }
+    } catch (error) {
+      return { status: "error", error: error }
+    }
   }
 
   public async addComment(
@@ -51,7 +64,7 @@ class TopicService extends ApiService {
     commentData: { content: string; createdBy: string }
   ) {
     const { data, error } = await this._getData(
-      this.instance.post(`/topics/${topicId}/comments`, commentData)
+      this.instance.post(`/topics/topic/${topicId}/comments`, commentData)
     )
     if (error) {
       return { status: "error", error }

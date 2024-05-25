@@ -21,9 +21,12 @@ import { useAuth } from "../contexts/auth.context"
 const NavBar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { isAuthenticated, user, logout } = useAuth()
-  const menuItems = ["Estadísticas"]
-
-  console.log("NavBar render: isAuthenticated=", isAuthenticated, "user=", user)
+  const menuItems = [
+    { name: "Estadísticas", href: "/estadisticas" },
+    { name: "Foro", href: "/foro" },
+    { name: "Iniciar sesión", href: "/login" },
+    { name: "Registrarse", href: "/register" }
+  ]
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -50,6 +53,11 @@ const NavBar: React.FC = () => {
         <NavbarItem>
           <Link color="foreground" href="/estadisticas">
             Estadísticas
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/foro">
+            Foro
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -110,6 +118,11 @@ const NavBar: React.FC = () => {
                 href="/estadisticas"
               >
                 Estadísticas
+              </Link>
+            </NavbarMenuItem>
+            <NavbarMenuItem>
+              <Link color="foreground" className="w-full" size="lg" href="/foro">
+                Foro
               </Link>
             </NavbarMenuItem>
             <NavbarMenuItem>
