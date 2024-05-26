@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import { Title } from "rizzui"
 import { Button, Pagination } from "@nextui-org/react"
-import ModalCrearTopic from "../../components/modalCrearTopic" // Asegúrate de ajustar el path si es necesario
+import ModalCrearTopic from "../../components/Modals/modalCrearTopic" // Asegúrate de ajustar el path si es necesario
 import { AiFillLike, AiFillDislike } from "react-icons/ai"
 import { TopicService } from "../../services/topic.service"
 import { ITopic } from "../../types/topic.type"
+import { Link } from "react-router-dom"
 
 const CreateTopicForm: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -53,7 +54,11 @@ const CreateTopicForm: React.FC = () => {
             className="flex flex-col w-[80%] justify-between border border-gray-500 py-4 px-6 rounded-lg"
           >
             <div className="flex flex-row justify-between">
-              <Title as="h3">{topic.title}</Title>
+              <Link to={`/foro/${topic._id}`}>
+                <Title as="h3" className="hover:underline">
+                  {topic.title}
+                </Title>
+              </Link>
               <div className="flex flex-row min-w-20 justify-between">
                 <div className="flex flex-row items-center">
                   <AiFillLike /> <p>{topic.likes}</p>
@@ -70,12 +75,14 @@ const CreateTopicForm: React.FC = () => {
             <p>{topic.content}</p>
           </div>
         ))}
-        <Pagination
-          total={totalPages}
-          color="secondary"
-          page={currentPage}
-          onChange={setCurrentPage}
-        />
+        {topics && (
+          <Pagination
+            total={totalPages}
+            color="secondary"
+            page={currentPage}
+            onChange={setCurrentPage}
+          />
+        )}
       </div>
 
       <ModalCrearTopic

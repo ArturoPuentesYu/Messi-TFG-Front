@@ -48,10 +48,20 @@ class TopicService extends ApiService {
     }
   }
 
+  public async getTopicById(id: string) {
+    try {
+      const data = await this._getData(this.instance.get(`/topics/topic/${id}`))
+      return { status: "ok", topic: data }
+    } catch (error) {
+      console.error("Error getting player data:", error)
+      return { status: "error", error: error }
+    }
+  }
+
   public async getTopicsPagination(page: number, limit: number) {
     try {
       const data = await this._getData(
-        this.instance.get(`/topics/topic/pagination?limit=${limit}&page=${page}`)
+        this.instance.get(`/topics/pagination?limit=${limit}&page=${page}`)
       )
       return { status: "ok", data: data }
     } catch (error) {

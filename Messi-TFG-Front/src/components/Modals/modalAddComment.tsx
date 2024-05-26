@@ -7,22 +7,24 @@ import {
   ModalFooter,
   Button
 } from "@nextui-org/react"
-import { useAuth } from "../contexts/auth.context"
-import { TopicService } from "../services/topic.service"
+import { useAuth } from "../../contexts/auth.context"
+import { TopicService } from "../../services/topic.service"
 
-import { Textarea, Input } from "rizzui"
+import { Textarea } from "rizzui"
+
 interface ModalComponentProps {
   isOpen: boolean
   onOpenChange: (open: boolean) => void
-  onTopicCreated: () => void // Nueva prop para manejar la actualización de temas
+  onTopicCreated: () => void
+  id_topic: string
 }
 
-const ModalCrearTopic: React.FC<ModalComponentProps> = ({
+const ModalAddComment: React.FC<ModalComponentProps> = ({
   isOpen,
   onOpenChange,
-  onTopicCreated
+  onTopicCreated,
+  id_topic
 }) => {
-  const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [error, setError] = useState<string | null>(null)
   const { user, isAuthenticated } = useAuth()
@@ -37,15 +39,13 @@ const ModalCrearTopic: React.FC<ModalComponentProps> = ({
 
     try {
       const topicData = {
-        title,
         content,
         createdBy: user._id
       }
-      const response = await topicService.createTopic(topicData)
+      const response = await topicService.addComment(id_topic, topicData)
       if (response.status === "error") {
         setError(response.error)
       } else {
-        setTitle("")
         setContent("")
         setError(null)
         onOpenChange(false) // Cerrar el modal
@@ -63,26 +63,15 @@ const ModalCrearTopic: React.FC<ModalComponentProps> = ({
           <>
             <form onSubmit={handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Crea tu tema nuevo
+                Escribe tu comentario
               </ModalHeader>
               <ModalBody>
                 <div className="flex flex-col gap-y-4">
-                  <Input
-                    className="w-full flex-wrap md:flex-nowrap"
-                    label="Título"
-                    placeholder="Escribe tu título"
-                    type="text"
-                    id="title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                  />
                   <Textarea
                     className="w-full flex-wrap md:flex-nowrap"
                     id="content"
                     value={content}
-                    label="Subtítulo"
-                    placeholder="Escribe una descripción"
+                    placeholder="Escribe aquí"
                     onChange={(e) => setContent(e.target.value)}
                     required
                   />
@@ -91,7 +80,7 @@ const ModalCrearTopic: React.FC<ModalComponentProps> = ({
               </ModalBody>
               <ModalFooter>
                 <Button color="primary" type="submit" className="w-full">
-                  Sube tu nuevo tema
+                  Sube tu comentario
                 </Button>
               </ModalFooter>
             </form>
@@ -102,4 +91,4 @@ const ModalCrearTopic: React.FC<ModalComponentProps> = ({
   )
 }
 
-export default ModalCrearTopic
+export default ModalAddComment

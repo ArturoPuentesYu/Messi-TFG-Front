@@ -8,6 +8,7 @@ import Register from "./pages/register/page"
 import Login from "./pages/login/page"
 import { AuthProvider } from "./contexts/auth.context"
 import Foro from "./pages/forum/page"
+import Tema from "./pages/tema/tema"
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/foro" element={<Foro />} />
+          <Route path="/foro/:id" element={<Tema />} />
         </Routes>
         <Footer />
       </BrowserRouter>
