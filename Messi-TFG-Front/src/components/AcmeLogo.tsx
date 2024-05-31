@@ -1,4 +1,4 @@
- const AcmeLogo = () => (
+const AcmeLogo = () => (
   <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
     <path
       clipRule="evenodd"
@@ -7,5 +7,5 @@
       fillRule="evenodd"
     />
   </svg>
-);
-export default AcmeLogo;  
+)
+export default AcmeLogo

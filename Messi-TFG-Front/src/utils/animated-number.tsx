@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react"
-import { AnimatedNumberProps } from "../types/data.type"
+import React, { useEffect, useRef, useState } from 'react'
+import { AnimatedNumberProps } from '../types/data.type'
 
 const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
   finalNumber,
@@ -54,7 +54,7 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
   }, [finalNumber, duration])
 
   return (
-    <div ref={ref} style={{ fontSize: "48px" }}>
+    <div ref={ref} style={{ fontSize: '48px' }}>
       {displayNumber}
     </div>
   )

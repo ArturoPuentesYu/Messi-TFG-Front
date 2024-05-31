@@ -1,17 +1,17 @@
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { AuthService } from "../../services/auth.service"
-import { Button, Input, Password } from "rizzui"
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AuthService } from '../../services/auth.service'
+import { Button, Input, Password, Title } from 'rizzui'
 
 const authService = new AuthService()
 
 const Register: React.FC = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [name, setName] = useState("")
-  const [surnames, setSurnames] = useState("")
-  const [birthdate, setBirthdate] = useState("")
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [name, setName] = useState('')
+  const [surnames, setSurnames] = useState('')
+  const [birthdate, setBirthdate] = useState('')
 
   const navigate = useNavigate()
 
@@ -31,23 +31,24 @@ const Register: React.FC = () => {
         surnames,
         birthdate: birthdateObj
       })
-      if (response.status === "ok") {
-        navigate("/login")
+      if (response.status === 'ok') {
+        navigate('/login')
       } else {
         console.error(response.error)
       }
     } catch (error) {
-      console.error("Error registering user:", error)
+      console.error('Error registering user:', error)
     }
   }
 
   return (
-    <div className="flex justify-center items-center w-full screen-minus-navbar bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900">
+    <div className="screen-minus-navbar flex w-full items-center justify-center bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900">
       <div className="w-[80%] sm:w-[30rem]">
         <form
           onSubmit={handleSubmit}
-          className="grid grid-col gap-y-6 gap-x-5 bg-slate-100 border-gray-600 px-7 pt-6 pb-8 rounded-lg shadow-xl"
+          className="grid-col grid gap-x-5 gap-y-6 rounded-lg border-gray-600 bg-slate-100 px-7 pb-8 pt-6 shadow-xl"
         >
+          <Title as="h1">Regístrate</Title>
           <Input
             type="email"
             value={email}
@@ -69,22 +70,26 @@ const Register: React.FC = () => {
             placeholder="Repite la contraseña"
             required
           />
-          <Input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            label="Nombre"
-            placeholder="Nombre"
-            required
-          />
-          <Input
-            type="text"
-            value={surnames}
-            onChange={(e) => setSurnames(e.target.value)}
-            label="Apellidos"
-            placeholder="Apellidos"
-            required
-          />
+          <div className="flex flex-col gap-x-5 gap-y-6 sm:flex-row sm:items-center sm:justify-between">
+            <Input
+              className="w-full"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              label="Nombre"
+              placeholder="Nombre"
+              required
+            />
+            <Input
+              className="w-full"
+              type="text"
+              value={surnames}
+              onChange={(e) => setSurnames(e.target.value)}
+              label="Apellidos"
+              placeholder="Apellidos"
+              required
+            />
+          </div>
           <Input
             type="date"
             value={birthdate}
@@ -96,9 +101,9 @@ const Register: React.FC = () => {
           <Button
             type="submit"
             color="primary"
-            className="block w-full p-2 rounded my-2"
+            className="my-2 block w-full rounded p-2"
           >
-            Registrate
+            Crear una nueva cuenta
           </Button>
         </form>
       </div>

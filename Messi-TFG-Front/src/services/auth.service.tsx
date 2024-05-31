@@ -1,4 +1,4 @@
-import ApiService from "./api.service"
+import ApiService from './api.service'
 
 class AuthService extends ApiService {
   constructor() {
@@ -26,10 +26,10 @@ class AuthService extends ApiService {
   }) {
     try {
       const data = await this._getData(this.instance.post(`/auth/register`, user))
-      return { status: "ok", user: data }
+      return { status: 'ok', user: data }
     } catch (error) {
-      console.error("Error registering user:", error)
-      return { status: "error", error: error }
+      console.error('Error registering user:', error)
+      return { status: 'error', error: error }
     }
   }
 
@@ -37,36 +37,36 @@ class AuthService extends ApiService {
     try {
       const data = await this._getData(this.instance.post(`/auth/login`, user))
       if (data.token) {
-        localStorage.setItem("token", data.token)
+        localStorage.setItem('token', data.token)
       }
-      return { status: "ok", user: data.user }
+      return { status: 'ok', user: data.user }
     } catch (error) {
-      console.error("Error logging in:", error)
-      return { status: "error", error: error }
+      console.error('Error logging in:', error)
+      return { status: 'error', error: error }
     }
   }
 
   public logout() {
-    localStorage.removeItem("token")
+    localStorage.removeItem('token')
   }
 
   public getToken() {
-    return localStorage.getItem("token")
+    return localStorage.getItem('token')
   }
 
   public async getCurrentUser() {
     try {
       const token = this.getToken()
-      if (!token) throw new Error("No token found")
+      if (!token) throw new Error('No token found')
       const data = await this._getData(
         this.instance.get(`/auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         })
       )
-      return { status: "ok", user: data }
+      return { status: 'ok', user: data }
     } catch (error) {
-      console.error("Error fetching user data:", error)
-      return { status: "error", error: error }
+      console.error('Error fetching user data:', error)
+      return { status: 'error', error: error }
     }
   }
 }

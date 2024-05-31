@@ -1,19 +1,22 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from 'react'
 
 interface FullScreenBackgroundProps {
-  imageUrl: string;
-  children?: ReactNode;  // Esto permite pasar contenido interno
+  imageUrl: string
+  children?: ReactNode // Esto permite pasar contenido interno
 }
 
-const FullScreenBackground: React.FC<FullScreenBackgroundProps> = ({ imageUrl, children }) => {
+const FullScreenBackground: React.FC<FullScreenBackgroundProps> = ({
+  imageUrl,
+  children
+}) => {
   return (
     <div
       style={{ backgroundImage: `url(${imageUrl})` }}
-      className="w-full screen-minus-navbar bg-cover bg-center bg-no-repeat flex justify-center items-center"
+      className="screen-minus-navbar flex w-full items-center justify-center bg-cover bg-center bg-no-repeat"
     >
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default FullScreenBackground;
+export default FullScreenBackground

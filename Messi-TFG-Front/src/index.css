@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
   .screen-minus-navbar {
     height: calc(100vh - 4rem); /* Ajusta 4rem a la altura de tu navbar */
@@ -27,5 +26,3 @@
   background-size: 200% 200%;
   animation: slide-in 0.5s forwards;
 }
-
-

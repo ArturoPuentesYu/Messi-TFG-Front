@@ -1,31 +1,31 @@
-import ApiService from './api.service';
+import ApiService from './api.service'
 
 class UserService extends ApiService {
   constructor() {
-    super();
+    super()
   }
 
   private _getData = async (callAxios: Promise<any>) => {
     const { data, error } = await callAxios.catch(
       (err: { response: { data: { message: any } } }) => ({
-        error: err.response.data.message,
+        error: err.response.data.message
       })
-    );
+    )
     if (error) {
-      return { error };
+      return { error }
     }
-    return data;
-  };
+    return data
+  }
 
   public async getUser(id: string) {
     try {
-      const data = await this._getData(this.instance.get(`/user/${id}`));
-      return { status: 'ok', user: data };
+      const data = await this._getData(this.instance.get(`/user/${id}`))
+      return { status: 'ok', user: data }
     } catch (error) {
-      console.error('Error fetching user data:', error);
-      return { status: 'error', error: error };
+      console.error('Error fetching user data:', error)
+      return { status: 'error', error: error }
     }
   }
 }
 
-export { UserService };
+export { UserService }

@@ -1,4 +1,4 @@
-import { IUser } from "./user.type"
+import { IUser } from './user.type'
 // Definir el tipo para los comentarios
 export interface IComment {
   _id: string

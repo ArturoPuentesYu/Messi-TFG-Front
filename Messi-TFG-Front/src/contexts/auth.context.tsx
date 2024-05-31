@@ -4,8 +4,8 @@ import React, {
   useContext,
   useEffect,
   ReactNode
-} from "react"
-import { AuthService } from "../services/auth.service"
+} from 'react'
+import { AuthService } from '../services/auth.service'
 
 const authService = new AuthService()
 
@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       authService
         .getCurrentUser()
         .then((response) => {
-          if (response.status === "ok") {
+          if (response.status === 'ok') {
             setIsAuthenticated(true)
             setUser(response.user)
           }
@@ -47,14 +47,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     const response = await authService.login({ email, password })
-    if (response.status === "ok") {
+    if (response.status === 'ok') {
       const userResponse = await authService.getCurrentUser()
-      if (userResponse.status === "ok") {
+      if (userResponse.status === 'ok') {
         setIsAuthenticated(true)
         setUser(userResponse.user)
       }
     } else {
-      throw new Error("Login failed")
+      throw new Error('Login failed')
     }
   }
 
@@ -74,7 +74,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext)
   if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider")
+    throw new Error('useAuth must be used within an AuthProvider')
   }
   return context
 }

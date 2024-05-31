@@ -1,4 +1,4 @@
-import ApiService from "./api.service"
+import ApiService from './api.service'
 
 class TopicService extends ApiService {
   static createTopic(_topicData: {
@@ -6,7 +6,7 @@ class TopicService extends ApiService {
     content: string
     createdBy: any
   }) {
-    throw new Error("Method not implemented.")
+    throw new Error('Method not implemented.')
   }
   constructor() {
     super()
@@ -30,31 +30,31 @@ class TopicService extends ApiService {
     createdBy: string
   }) {
     const { data, error } = await this._getData(
-      this.instance.post("/topics/topic", topicData)
+      this.instance.post('/topics/topic', topicData)
     )
     if (error) {
-      return { status: "error", error }
+      return { status: 'error', error }
     }
-    return { status: "ok", topic: data }
+    return { status: 'ok', topic: data }
   }
 
   public async getTopics() {
     try {
-      const data = await this._getData(this.instance.get("/topics/topic"))
-      return { status: "ok", topics: data }
+      const data = await this._getData(this.instance.get('/topics/topic'))
+      return { status: 'ok', topics: data }
     } catch (error) {
-      console.error("Error getting player data:", error)
-      return { status: "error", error: error }
+      console.error('Error getting player data:', error)
+      return { status: 'error', error: error }
     }
   }
 
   public async getTopicById(id: string) {
     try {
       const data = await this._getData(this.instance.get(`/topics/topic/${id}`))
-      return { status: "ok", topic: data }
+      return { status: 'ok', topic: data }
     } catch (error) {
-      console.error("Error getting player data:", error)
-      return { status: "error", error: error }
+      console.error('Error getting player data:', error)
+      return { status: 'error', error: error }
     }
   }
 
@@ -63,9 +63,9 @@ class TopicService extends ApiService {
       const data = await this._getData(
         this.instance.get(`/topics/pagination?limit=${limit}&page=${page}`)
       )
-      return { status: "ok", data: data }
+      return { status: 'ok', data: data }
     } catch (error) {
-      return { status: "error", error: error }
+      return { status: 'error', error: error }
     }
   }
 
@@ -77,9 +77,9 @@ class TopicService extends ApiService {
       this.instance.post(`/topics/topic/${topicId}/comments`, commentData)
     )
     if (error) {
-      return { status: "error", error }
+      return { status: 'error', error }
     }
-    return { status: "ok", comment: data }
+    return { status: 'ok', comment: data }
   }
 }
 

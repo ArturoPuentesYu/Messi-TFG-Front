@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react"
-import { Title } from "rizzui"
-import { Button, Pagination } from "@nextui-org/react"
-import ModalCrearTopic from "../../components/Modals/modalCrearTopic" // Asegúrate de ajustar el path si es necesario
-import { AiFillLike, AiFillDislike } from "react-icons/ai"
-import { TopicService } from "../../services/topic.service"
-import { ITopic } from "../../types/topic.type"
-import { Link } from "react-router-dom"
+import { useEffect, useState } from 'react'
+import { Title } from 'rizzui'
+import { Button, Pagination } from '@nextui-org/react'
+import ModalCrearTopic from '../../components/Modals/modalCrearTopic' // Asegúrate de ajustar el path si es necesario
+import { AiFillLike, AiFillDislike } from 'react-icons/ai'
+import { TopicService } from '../../services/topic.service'
+import { ITopic } from '../../types/topic.type'
+import { Link } from 'react-router-dom'
 
 const CreateTopicForm: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -36,8 +36,8 @@ const CreateTopicForm: React.FC = () => {
 
   return (
     <>
-      <div className="flex flex-col min-h-screen pb-10 pt-8 gap-y-6 justify-start items-center w-full bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900">
-        <div className="flex flex-row w-[80%] justify-between pb-6">
+      <div className="flex min-h-screen w-full flex-col items-center justify-start gap-y-6 bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 pb-10 pt-8">
+        <div className="flex w-[80%] flex-row justify-between pb-6">
           <Title as="h1">Foro</Title>
           <Button
             color="primary"
@@ -51,7 +51,7 @@ const CreateTopicForm: React.FC = () => {
         {topics?.map((topic: ITopic) => (
           <div
             key={topic._id}
-            className="flex flex-col w-[80%] justify-between border border-gray-500 py-4 px-6 rounded-lg"
+            className="flex w-[80%] flex-col justify-between rounded-lg border border-gray-500 px-6 py-4"
           >
             <div className="flex flex-row justify-between">
               <Link to={`/foro/${topic._id}`}>
@@ -59,7 +59,7 @@ const CreateTopicForm: React.FC = () => {
                   {topic.title}
                 </Title>
               </Link>
-              <div className="flex flex-row min-w-20 justify-between">
+              <div className="flex min-w-20 flex-row justify-between">
                 <div className="flex flex-row items-center">
                   <AiFillLike /> <p>{topic.likes}</p>
                 </div>

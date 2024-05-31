@@ -1,34 +1,38 @@
-import messiBarca from "../assets/Messi-barca.png"
-import messiArgentina from "../assets/Messi-argentina.png"
-import messiMiami from "../assets/Messi-miami.png"
-import messiPsg from "../assets/messi-psg-t.png"
-import AnimatedNumber from "../utils/animated-number"
-import { useEffect, useState } from "react"
-import { MessiStats } from "../types/data.type"
-import { PlayerService } from "../services/data.service"
-import { Button, Image, Spinner } from "@nextui-org/react"
-import { Title } from "rizzui"
+import messiBarca from '../assets/Messi-barca.png'
+import messiArgentina from '../assets/Messi-argentina.png'
+import messiMiami from '../assets/Messi-miami.png'
+import messiPsg from '../assets/messi-psg-t.png'
+import AnimatedNumber from '../utils/animated-number'
+import { useEffect, useState } from 'react'
+import { MessiStats } from '../types/data.type'
+import { PlayerService } from '../services/data.service'
+import { Button, Image, Spinner } from '@nextui-org/react'
+import { Title } from 'rizzui'
 
 const imgsClubs = [
   {
     img: messiArgentina,
-    name: "ARG",
-    colors: "bg-gradient-to-r from-[#6CACE4] via-white to-[#6CACE4]"
+    name: 'ARG',
+    colors: 'bg-gradient-to-r from-[#6CACE4] via-white to-[#6CACE4]',
+    alt: 'Imagen de Messi en Argentina'
   },
   {
     img: messiBarca,
-    name: "BAR",
-    colors: "bg-gradient-to-r from-[#004D98] to-[#A50044]"
+    name: 'BAR',
+    colors: 'bg-gradient-to-r from-[#004D98] to-[#A50044]',
+    alt: 'Imagen de Messi en Barcelona'
   },
   {
     img: messiPsg,
-    name: "PSG",
-    colors: "bg-gradient-to-r from-[#004170] via-[#DA291C] to-[#004170]"
+    name: 'PSG',
+    colors: 'bg-gradient-to-r from-[#004170] via-[#DA291C] to-[#004170]',
+    alt: 'Imagen de Messi en PSG'
   },
   {
     img: messiMiami,
-    name: "MIAMI",
-    colors: "bg-gradient-to-r from-[#231F20] via-[#F7B5CD] to-[#231F20]"
+    name: 'MIAMI',
+    colors: 'bg-gradient-to-r from-[#231F20] via-[#F7B5CD] to-[#231F20]',
+    alt: 'Imagen de Messi en el Inter de Miami'
   }
 ]
 
@@ -39,21 +43,21 @@ const initialStats = {
   tarjetas_amarillas: 0,
   tarjetas_rojas: 0,
   num_titulos: 0,
-  goles_partidos: "0",
-  asists_partidos: "0",
-  gol_asist_partidos: "0"
+  goles_partidos: '0',
+  asists_partidos: '0',
+  gol_asist_partidos: '0'
 }
 
 const labelMap: { [key: string]: string } = {
-  partidos_jugados: "Partidos Jugados",
-  goles: "Goles",
-  asistencias: "Asistencias",
-  tarjetas_amarillas: "Tarjetas Amarillas",
-  tarjetas_rojas: "Tarjetas Rojas",
-  num_titulos: "Títulos",
-  goles_partidos: "Goles/Partido",
-  asists_partidos: "Asistencias/Partido",
-  gol_asist_partidos: "G+A/Partido"
+  partidos_jugados: 'Partidos Jugados',
+  goles: 'Goles',
+  asistencias: 'Asistencias',
+  tarjetas_amarillas: 'Tarjetas Amarillas',
+  tarjetas_rojas: 'Tarjetas Rojas',
+  num_titulos: 'Títulos',
+  goles_partidos: 'Goles/Partido',
+  asists_partidos: 'Asistencias/Partido',
+  gol_asist_partidos: 'G+A/Partido'
 }
 
 const StatItem = ({
@@ -63,12 +67,12 @@ const StatItem = ({
   labelKey: string
   value: number | string
 }) => (
-  <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center bg-slate-50">
-    <dt className="order-last text-sm md:text-md font-medium text-gray-500">
+  <div className="flex flex-col rounded-lg border border-gray-100 bg-slate-50 px-4 py-8 text-center">
+    <dt className="md:text-md order-last text-sm font-medium text-gray-500">
       {labelMap[labelKey]}
     </dt>
     <dd className="text-2xl font-extrabold text-stone-800 md:text-5xl">
-      {typeof value === "number" ? (
+      {typeof value === 'number' ? (
         <AnimatedNumber finalNumber={value} duration={2000} />
       ) : (
         value
@@ -81,7 +85,7 @@ export const StatPage = () => {
   const [player, setPlayer] = useState<MessiStats[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentColor, setCurrentColor] = useState(-1)
-  const [newColor, setNewColor] = useState("")
+  const [newColor, setNewColor] = useState('')
   const [isAnimating, setIsAnimating] = useState(false)
   const [totalMessi, setTotalMessi] = useState(initialStats)
   const [objStats, setObjStats] = useState(initialStats)
@@ -93,7 +97,7 @@ export const StatPage = () => {
     playerService
       .getMessiStats()
       .then((response) => {
-        if (response.status === "ok") {
+        if (response.status === 'ok') {
           const data = response.transactions
           setPlayer(data)
           const result = data.reduce(
@@ -174,7 +178,7 @@ export const StatPage = () => {
     setIsButtonLoading(true)
     setIsAnimating(true)
 
-    let newColorClass = "bg-gradient-to-r from-orange-500 to-yellow-300"
+    let newColorClass = 'bg-gradient-to-r from-orange-500 to-yellow-300'
     let newIndex = -1
 
     const clubIndex = imgsClubs.findIndex((club) => club.name.toLowerCase() === name)
@@ -197,7 +201,7 @@ export const StatPage = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full screen-minus-navbar flex justify-center items-center">
+      <div className="screen-minus-navbar flex w-full items-center justify-center">
         <Spinner color="default" labelColor="foreground" />
       </div>
     )
@@ -205,22 +209,22 @@ export const StatPage = () => {
 
   return (
     <div
-      className={`relative w-full screen-minus-navbar flex flex-col ${currentColor === -1 ? "bg-gradient-to-b from-orange-500 to-yellow-300" : imgsClubs[currentColor].colors}`}
+      className={`screen-minus-navbar relative flex w-full flex-col ${currentColor === -1 ? 'bg-gradient-to-b from-orange-500 to-yellow-300' : imgsClubs[currentColor].colors}`}
     >
       {isAnimating && <div className={`overlay absolute inset-0 ${newColor}`}></div>}
-      <div className="flex flex-col m-[2%] gap-4">
+      <div className="m-[2%] flex flex-col gap-4">
         <div className="w-full text-center md:text-left lg:w-auto">
           <Title
-            as="h2"
-            className={`italic ${currentColor > 0 ? "text-white" : ""}`}
+            as="h1"
+            className={`italic ${currentColor > 0 ? 'text-white' : ''}`}
           >
-            {" "}
+            {' '}
             Estadísticas de Messi
           </Title>
         </div>
-        <div className="flex gap-4 items-center justify-center flex-wrap">
+        <div className="flex flex-wrap items-center justify-center gap-4">
           <Button
-            onClick={() => handleRenderChange("total")}
+            onClick={() => handleRenderChange('total')}
             isLoading={isButtonLoading}
             color="default"
             variant="shadow"
@@ -241,7 +245,7 @@ export const StatPage = () => {
           ))}
         </div>
         <div className="flex h-full items-center justify-center">
-          <dl className="grid grid-cols-2 gap-4 lg:grid-cols-3 w-full">
+          <dl className="grid w-full grid-cols-2 gap-4 lg:grid-cols-3">
             {Object.entries(objStats).map(([key, value]) => (
               <StatItem key={key} labelKey={key} value={value} />
             ))}
@@ -254,7 +258,7 @@ export const StatPage = () => {
 
 export const StatContainers = () => {
   const [player, setPlayer] = useState<MessiStats[]>([])
-  const [errorMessage, setError] = useState("")
+  const [errorMessage, setError] = useState('')
   const [isLoading, setIsLoading] = useState(true)
 
   const playerService = new PlayerService()
@@ -262,7 +266,7 @@ export const StatContainers = () => {
     playerService
       .getMessiStats()
       .then((response) => {
-        if (response.status === "ok") {
+        if (response.status === 'ok') {
           const data = response.transactions
           setPlayer(data)
           setIsLoading(false)
@@ -277,7 +281,7 @@ export const StatContainers = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full screen-minus-navbar flex justify-center items-center">
+      <div className="screen-minus-navbar flex w-full items-center justify-center">
         <Spinner color="default" labelColor="foreground" />
       </div>
     )
@@ -287,27 +291,27 @@ export const StatContainers = () => {
       {player.map((club: MessiStats, index: number) => {
         return (
           <div
-            className={`flex flex-row items-center justify-center w-full gap-4 ${imgsClubs[index].colors}`}
+            className={`flex w-full flex-row items-center justify-center gap-4 ${imgsClubs[index].colors}`}
           >
-            <div className="hidden md:flex items-start justify-center w-[50%]">
+            <div className="hidden w-[50%] items-start justify-center md:flex">
               <Image
                 src={imgsClubs[index].img}
-                alt="messi-logo"
+                alt={`${imgsClubs[index].alt}`}
                 radius="none"
                 className="h-[10rem] md:h-[20rem] lg:h-[30rem]"
                 isZoomed={true}
               />
             </div>
-            <div className="flex items-start justify-center w-[80%] md:w-[50%]">
-              <div className="my-8 sm:my-12 mx-[2%]">
+            <div className="flex w-[80%] items-start justify-center md:w-[50%]">
+              <div className="mx-[2%] my-8 sm:my-12">
                 <h1
-                  className={`flex items-start justify-center text-4xl font-bold pb-2 ${index === 0 ? "text-black-700" : "text-slate-50"}`}
+                  className={`flex items-start justify-center pb-2 text-4xl font-bold ${index === 0 ? 'text-black-700' : 'text-slate-50'}`}
                 >
                   {club.club || club.pais}
                 </h1>
                 <dl className="grid grid-cols-2 gap-4 lg:grid-cols-3 2xl:grid-cols-6">
-                  <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center bg-slate-50">
-                    <dt className="order-last text-sm md:text-md font-medium text-gray-500">
+                  <div className="flex flex-col rounded-lg border border-gray-100 bg-slate-50 px-4 py-8 text-center">
+                    <dt className="md:text-md order-last text-sm font-medium text-gray-500">
                       Partidos
                     </dt>
 
@@ -319,8 +323,8 @@ export const StatContainers = () => {
                     </dd>
                   </div>
 
-                  <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center bg-slate-50">
-                    <dt className="order-last text-sm md:text-md font-medium text-gray-500">
+                  <div className="flex flex-col rounded-lg border border-gray-100 bg-slate-50 px-4 py-8 text-center">
+                    <dt className="md:text-md order-last text-sm font-medium text-gray-500">
                       Goles
                     </dt>
 
@@ -329,8 +333,8 @@ export const StatContainers = () => {
                     </dd>
                   </div>
 
-                  <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center bg-slate-50">
-                    <dt className="order-last text-sm md:text-md font-medium text-gray-500">
+                  <div className="flex flex-col rounded-lg border border-gray-100 bg-slate-50 px-4 py-8 text-center">
+                    <dt className="md:text-md order-last text-sm font-medium text-gray-500">
                       Asistencias
                     </dt>
 
@@ -341,8 +345,8 @@ export const StatContainers = () => {
                       />
                     </dd>
                   </div>
-                  <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center bg-slate-50">
-                    <dt className="order-last text-sm md:text-md font-medium text-gray-500">
+                  <div className="flex flex-col rounded-lg border border-gray-100 bg-slate-50 px-4 py-8 text-center">
+                    <dt className="md:text-md order-last text-sm font-medium text-gray-500">
                       T. Amarillas
                     </dt>
 
@@ -353,8 +357,8 @@ export const StatContainers = () => {
                       />
                     </dd>
                   </div>
-                  <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center bg-slate-50">
-                    <dt className="order-last text-sm md:text-md font-medium text-gray-500">
+                  <div className="flex flex-col rounded-lg border border-gray-100 bg-slate-50 px-4 py-8 text-center">
+                    <dt className="md:text-md order-last text-sm font-medium text-gray-500">
                       T. Rojas
                     </dt>
 
@@ -365,8 +369,8 @@ export const StatContainers = () => {
                       />
                     </dd>
                   </div>
-                  <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center bg-slate-50">
-                    <dt className="order-last text-sm md:text-md font-medium text-gray-500">
+                  <div className="flex flex-col rounded-lg border border-gray-100 bg-slate-50 px-4 py-8 text-center">
+                    <dt className="md:text-md order-last text-sm font-medium text-gray-500">
                       G+A/P
                     </dt>
 

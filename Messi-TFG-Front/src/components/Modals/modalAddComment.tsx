@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   Modal,
   ModalContent,
@@ -6,11 +6,11 @@ import {
   ModalBody,
   ModalFooter,
   Button
-} from "@nextui-org/react"
-import { useAuth } from "../../contexts/auth.context"
-import { TopicService } from "../../services/topic.service"
+} from '@nextui-org/react'
+import { useAuth } from '../../contexts/auth.context'
+import { TopicService } from '../../services/topic.service'
 
-import { Textarea } from "rizzui"
+import { Textarea } from 'rizzui'
 
 interface ModalComponentProps {
   isOpen: boolean
@@ -25,7 +25,7 @@ const ModalAddComment: React.FC<ModalComponentProps> = ({
   onTopicCreated,
   id_topic
 }) => {
-  const [content, setContent] = useState("")
+  const [content, setContent] = useState('')
   const [error, setError] = useState<string | null>(null)
   const { user, isAuthenticated } = useAuth()
 
@@ -33,7 +33,7 @@ const ModalAddComment: React.FC<ModalComponentProps> = ({
     event.preventDefault()
     const topicService = new TopicService()
     if (!isAuthenticated) {
-      setError("Tienes que iniciar sesión para crear un tema")
+      setError('Tienes que iniciar sesión para crear un tema')
       return
     }
 
@@ -43,16 +43,16 @@ const ModalAddComment: React.FC<ModalComponentProps> = ({
         createdBy: user._id
       }
       const response = await topicService.addComment(id_topic, topicData)
-      if (response.status === "error") {
+      if (response.status === 'error') {
         setError(response.error)
       } else {
-        setContent("")
+        setContent('')
         setError(null)
         onOpenChange(false) // Cerrar el modal
         onTopicCreated() // Actualizar la lista de temas
       }
     } catch (err) {
-      setError("No se ha podido crear el Tema")
+      setError('No se ha podido crear el Tema')
     }
   }
 

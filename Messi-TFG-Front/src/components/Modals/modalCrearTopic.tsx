@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   Modal,
   ModalContent,
@@ -6,11 +6,11 @@ import {
   ModalBody,
   ModalFooter,
   Button
-} from "@nextui-org/react"
-import { useAuth } from "../../contexts/auth.context"
-import { TopicService } from "../../services/topic.service"
+} from '@nextui-org/react'
+import { useAuth } from '../../contexts/auth.context'
+import { TopicService } from '../../services/topic.service'
 
-import { Textarea, Input } from "rizzui"
+import { Textarea, Input } from 'rizzui'
 interface ModalComponentProps {
   isOpen: boolean
   onOpenChange: (open: boolean) => void
@@ -22,8 +22,8 @@ const ModalCrearTopic: React.FC<ModalComponentProps> = ({
   onOpenChange,
   onTopicCreated
 }) => {
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
   const [error, setError] = useState<string | null>(null)
   const { user, isAuthenticated } = useAuth()
 
@@ -31,7 +31,7 @@ const ModalCrearTopic: React.FC<ModalComponentProps> = ({
     event.preventDefault()
     const topicService = new TopicService()
     if (!isAuthenticated) {
-      setError("Tienes que iniciar sesión para crear un tema")
+      setError('Tienes que iniciar sesión para crear un tema')
       return
     }
 
@@ -42,17 +42,17 @@ const ModalCrearTopic: React.FC<ModalComponentProps> = ({
         createdBy: user._id
       }
       const response = await topicService.createTopic(topicData)
-      if (response.status === "error") {
+      if (response.status === 'error') {
         setError(response.error)
       } else {
-        setTitle("")
-        setContent("")
+        setTitle('')
+        setContent('')
         setError(null)
         onOpenChange(false) // Cerrar el modal
         onTopicCreated() // Actualizar la lista de temas
       }
     } catch (err) {
-      setError("No se ha podido crear el Tema")
+      setError('No se ha podido crear el Tema')
     }
   }
 

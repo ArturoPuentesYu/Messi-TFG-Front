@@ -1,26 +1,25 @@
-import FullScreenBackground from "../../utils/full-screen-background"
+import FullScreenBackground from '../../utils/full-screen-background'
 
-import { Card, CardBody } from "@nextui-org/react"
-import { StatContainers } from "../../components/statsDisplays"
+import { StatContainers } from '../../components/statsDisplays'
 
 const HomePage = () => {
   return (
     <>
-      <FullScreenBackground imageUrl="wallpapersden.com_lionel-messi-4k-in-black_2560x1080.webp">
-        <Card
+      <FullScreenBackground imageUrl="messi-1-min.jpg">
+        {/* <Card
           isBlurred
-          className="border-none bg-background/60 dark:bg-default-100/50 max-w-[80%] lg:max-w-[65%]"
+          className="max-w-[80%] border-none bg-background/60 dark:bg-default-100/50 lg:max-w-[65%]"
           shadow="sm"
         >
-          <CardBody>
-            <p className="font-bold text-xl md:text-4xl xl:text-5xl">
+           <CardBody>
+            <p className="text-xl font-bold md:text-4xl xl:text-5xl">
               "Tienes que luchar para alcanzar tu sueño. Tienes que sacrificarte y
               trabajar duro por ello."
             </p>
-          </CardBody>
-        </Card>
+          </CardBody> 
+        </Card> */}
       </FullScreenBackground>
-      <div className="flex flex-col items-center justify-center w-full">
+      <div className="flex w-full flex-col items-center justify-center">
         <StatContainers />
       </div>
     </>

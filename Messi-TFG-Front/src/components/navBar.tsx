@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -14,25 +14,25 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem
-} from "@nextui-org/react"
-import MessiLogo from "../assets/messiLogo.png"
-import { useAuth } from "../contexts/auth.context"
+} from '@nextui-org/react'
+import MessiLogo from '../assets/messiLogo.png'
+import { useAuth } from '../contexts/auth.context'
 
 const NavBar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { isAuthenticated, user, logout } = useAuth()
   const menuItems = [
-    { name: "Estadísticas", href: "/estadisticas" },
-    { name: "Foro", href: "/foro" },
-    { name: "Iniciar sesión", href: "/login" },
-    { name: "Registrarse", href: "/register" }
+    { name: 'Estadísticas', href: '/estadisticas' },
+    { name: 'Foro', href: '/foro' },
+    { name: 'Iniciar sesión', href: '/login' },
+    { name: 'Registrarse', href: '/register' }
   ]
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
         <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           className="sm:hidden"
         />
         <NavbarBrand>
@@ -49,10 +49,15 @@ const NavBar: React.FC = () => {
           </Link>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden gap-4 sm:flex" justify="center">
         <NavbarItem>
           <Link color="foreground" href="/estadisticas">
             Estadísticas
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/mi-carrera">
+            Biografía
           </Link>
         </NavbarItem>
         <NavbarItem>
@@ -61,7 +66,7 @@ const NavBar: React.FC = () => {
           </Link>
         </NavbarItem>
       </NavbarContent>
-      <NavbarContent className="hidden sm:flex gap-4" justify="end">
+      <NavbarContent className="hidden gap-4 sm:flex" justify="end">
         {isAuthenticated ? (
           <Dropdown placement="bottom-end">
             <DropdownTrigger>{`Hola, ${user.name}`}</DropdownTrigger>
@@ -96,7 +101,7 @@ const NavBar: React.FC = () => {
           menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
-                color={index === menuItems.length - 1 ? "danger" : "foreground"}
+                color={index === menuItems.length - 1 ? 'danger' : 'foreground'}
                 className="w-full"
                 href={item.href}
                 size="lg"
