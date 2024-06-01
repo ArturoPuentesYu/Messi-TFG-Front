@@ -49,36 +49,36 @@ const CreateTopicForm: React.FC = () => {
         </div>
 
         {topics?.map((topic: ITopic) => (
-          <div
-            key={topic._id}
-            className="flex w-[80%] flex-col justify-between rounded-lg border border-gray-500 px-6 py-4"
+          <Link
+            to={`/foro/${topic._id}`}
+            className="flex w-[80%] flex-col justify-between rounded-lg bg-white/50 px-6 py-4 shadow-md hover:bg-slate-300/50 hover:shadow-2xl"
           >
-            <div className="flex flex-row justify-between">
-              <Link to={`/foro/${topic._id}`}>
-                <Title as="h3" className="hover:underline">
+            <div key={topic._id}>
+              <div className="flex flex-row justify-between">
+                <Title as="h2" className="hover:underline">
                   {topic.title}
                 </Title>
-              </Link>
-              <div className="flex min-w-20 flex-row justify-between">
-                <div className="flex flex-row items-center">
-                  <AiFillLike /> <p>{topic.likes}</p>
-                </div>
-                <div className="flex flex-row items-center">
-                  <AiFillDislike /> <p>{topic.dislikes}</p>
+                <div className="flex min-w-20 flex-row justify-between">
+                  <div className="flex flex-row items-center">
+                    <AiFillLike /> <p>{topic.likes?.length ?? 0}</p>
+                  </div>
+                  <div className="flex flex-row items-center">
+                    <AiFillDislike /> <p>{topic.dislikes?.length ?? 0}</p>
+                  </div>
                 </div>
               </div>
+              <div className="flex flex-row justify-between">
+                <p>Creado por: {topic.createdBy.name}</p>
+                <p>{new Date(topic.createdAt).toLocaleDateString()}</p>
+              </div>
+              <p>{topic.content}</p>
             </div>
-            <div className="flex flex-row justify-between">
-              <p>Creado por: {topic.createdBy.name}</p>
-              <p>{new Date(topic.createdAt).toLocaleDateString()}</p>
-            </div>
-            <p>{topic.content}</p>
-          </div>
+          </Link>
         ))}
         {topics && (
           <Pagination
             total={totalPages}
-            color="secondary"
+            color="primary"
             page={currentPage}
             onChange={setCurrentPage}
           />

@@ -90,7 +90,7 @@ const MiCarrera = () => {
       </header>
 
       <main className="flex w-[80%] flex-col justify-between rounded-lg border border-gray-500 px-6 py-4">
-        <section className="flex flex-col rounded-lg bg-white p-6 shadow-md">
+        <section className="flex flex-col rounded-lg bg-white/50 p-6 shadow-md">
           <h2 className="text-2xl font-bold sm:mb-4">El 'GOAT'</h2>
           <div className="flex flex-col items-center justify-center lg:grid lg:grid-cols-2 lg:gap-6">
             <Image
@@ -107,7 +107,7 @@ const MiCarrera = () => {
           </div>
         </section>
 
-        <section className="mt-6 flex flex-col items-center justify-center rounded-lg bg-white p-6 shadow-md">
+        <section className="mt-6 flex flex-col items-center justify-center rounded-lg bg-white/50 p-6 shadow-md">
           <h2 className="mb-4 w-full text-2xl font-bold">Carrera</h2>
           <Image
             src={MessiTrofeos}
@@ -120,8 +120,12 @@ const MiCarrera = () => {
                 key={index}
                 aria-label={`Accordion ${index + 1}`}
                 title={item.title}
+                classNames={{
+                  title: 'text-md text-black-700 dark:text-white',
+                  content: 'text-justify'
+                }}
               >
-                <p className="text-justify">{item.content}</p>
+                {item.content}
               </AccordionItem>
             ))}
           </Accordion>

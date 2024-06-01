@@ -6,8 +6,8 @@ export interface IComment {
   createdBy: IUser
   createdAt: Date
   updatedAt: Date
-  likes?: number
-  dislikes?: number
+  likes?: IUser[]
+  dislikes?: IUser[]
 }
 
 // Definir el tipo para los temas
@@ -18,7 +18,7 @@ export interface ITopic {
   createdBy: IUser
   createdAt: Date
   updatedAt: Date
-  likes?: number
-  dislikes?: number
+  likes?: IUser[]
+  dislikes?: IUser[]
   comments?: IComment[]
 }

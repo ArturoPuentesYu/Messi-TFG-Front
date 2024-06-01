@@ -8,7 +8,7 @@ import Register from './pages/register/page'
 import Login from './pages/login/page'
 import { AuthProvider } from './contexts/auth.context'
 import Foro from './pages/forum/page'
-import Tema from './pages/tema/tema'
+import Tema from './pages/tema/page'
 import MiCarrera from './pages/carrera/page'
 
 const App: React.FC = () => {
