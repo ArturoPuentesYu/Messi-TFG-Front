@@ -20,7 +20,7 @@ import { useAuth } from '../contexts/auth.context'
 
 const NavBar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { isAuthenticated, user, logout } = useAuth()
+  const { isAuthenticated, user, logout, isAdmin } = useAuth()
   const menuItems = [
     { name: 'Estadísticas', href: '/estadisticas' },
     { name: 'Foro', href: '/foro' },
@@ -74,6 +74,15 @@ const NavBar: React.FC = () => {
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">{user.email}</p>
               </DropdownItem>
+              {isAdmin ? (
+                <DropdownItem key="admin" className="h-14 gap-2">
+                  <Link href="/admin" className="font-semibold">
+                    Administrador
+                  </Link>
+                </DropdownItem>
+              ) : (
+                <></>
+              )}
               <DropdownItem key="logout" color="danger">
                 <Button className="w-full" color="danger" onClick={logout}>
                   Cerrar sesión
@@ -123,6 +132,16 @@ const NavBar: React.FC = () => {
                 href="/estadisticas"
               >
                 Estadísticas
+              </Link>
+            </NavbarMenuItem>
+            <NavbarMenuItem>
+              <Link
+                color="foreground"
+                className="w-full"
+                size="lg"
+                href="/mi-carrera"
+              >
+                Biografía
               </Link>
             </NavbarMenuItem>
             <NavbarMenuItem>

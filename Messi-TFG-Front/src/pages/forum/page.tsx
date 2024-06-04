@@ -51,9 +51,10 @@ const CreateTopicForm: React.FC = () => {
         {topics?.map((topic: ITopic) => (
           <Link
             to={`/foro/${topic._id}`}
+            key={topic._id}
             className="flex w-[80%] flex-col justify-between rounded-lg bg-white/50 px-6 py-4 shadow-md hover:bg-slate-300/50 hover:shadow-2xl"
           >
-            <div key={topic._id}>
+            <div>
               <div className="flex flex-row justify-between">
                 <Title as="h2" className="hover:underline">
                   {topic.title}

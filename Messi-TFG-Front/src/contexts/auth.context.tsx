@@ -12,6 +12,7 @@ const authService = new AuthService()
 interface AuthContextType {
   user: any
   isAuthenticated: boolean
+  isAdmin: boolean
   login: (email: string, password: string) => Promise<any>
   logout: () => void
 }
@@ -25,6 +26,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<any>(null)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+  const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
   useEffect(() => {
     const token = authService.getToken()
@@ -33,8 +35,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .getCurrentUser()
         .then((response) => {
           if (response.status === 'ok') {
+            return response.user
+          }
+        })
+        .then((user) => {
+          if (user) {
             setIsAuthenticated(true)
-            setUser(response.user)
+            setUser(user)
+            setIsAdmin(user?.is_admin ?? false)
           }
         })
         .catch(() => {
@@ -65,7 +73,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout, isAdmin }}>
       {children}
     </AuthContext.Provider>
   )

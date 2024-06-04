@@ -121,7 +121,7 @@ const MiCarrera = () => {
                 aria-label={`Accordion ${index + 1}`}
                 title={item.title}
                 classNames={{
-                  title: 'text-md text-black-700 dark:text-white',
+                  title: 'text-md text-black-700 dark:text-white font-semibold',
                   content: 'text-justify'
                 }}
               >

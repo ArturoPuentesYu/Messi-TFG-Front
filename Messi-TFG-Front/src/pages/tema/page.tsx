@@ -87,8 +87,11 @@ const CreateTopicForm: React.FC = () => {
               <div className="mt-10 flex flex-col gap-y-6">
                 {topic.comments
                   ?.slice((currentPage - 1) * 5, currentPage * 5)
-                  .map((comment: IComment) => (
-                    <div className="w-full justify-between rounded-lg bg-white/70 px-6 py-4 shadow-md">
+                  .map((comment: IComment, index) => (
+                    <div
+                      key={index}
+                      className="w-full justify-between rounded-lg bg-white/70 px-6 py-4 shadow-md"
+                    >
                       <div className="flex flex-col">
                         <div className="flex flex-col justify-between sm:flex-row">
                           <div className="flex flex-row items-baseline gap-2">

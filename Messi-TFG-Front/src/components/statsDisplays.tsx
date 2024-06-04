@@ -291,6 +291,7 @@ export const StatContainers = () => {
       {player.map((club: MessiStats, index: number) => {
         return (
           <div
+            key={index}
             className={`flex w-full flex-row items-center justify-center gap-4 ${imgsClubs[index].colors}`}
           >
             <div className="hidden w-[50%] items-start justify-center md:flex">
