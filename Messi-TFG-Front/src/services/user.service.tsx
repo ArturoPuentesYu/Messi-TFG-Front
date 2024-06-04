@@ -19,7 +19,7 @@ class UserService extends ApiService {
 
   public async getUser(id: string) {
     try {
-      const data = await this._getData(this.instance.get(`/user/${id}`))
+      const data = await this._getData(this.instance.get(`/users/${id}`))
       return { status: 'ok', user: data }
     } catch (error) {
       console.error('Error fetching user data:', error)
@@ -28,7 +28,7 @@ class UserService extends ApiService {
   }
   public async getAllUsers() {
     try {
-      const data = await this._getData(this.instance.get(`/user/allUsers`))
+      const data = await this._getData(this.instance.get(`/users/allUsers`))
       return { status: 'ok', users: data }
     } catch (error) {
       console.error('Error fetching user data:', error)

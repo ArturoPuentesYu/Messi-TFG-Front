@@ -22,7 +22,22 @@ const Admin: React.FC = () => {
   }, [])
   return (
     <div className="screen-minus-navbar flex items-center justify-center bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900">
-      <div className="w-[80%] sm:w-[30rem]">{users.map((user) => user)}</div>
+      <div className="w-[80%] sm:w-[30rem]">
+        {users.map((user) => (
+          <>
+            <div
+              key={user._id}
+              className="flex w-[80%] flex-col justify-between rounded-lg bg-white/50 px-6 py-4 shadow-md hover:bg-slate-300/50 hover:shadow-2xl"
+            >
+              <div className="flex flex-row justify-between">
+                <Title as="h2" className="hover:underline">
+                  {user.name}
+                </Title>
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
     </div>
   )
 }
